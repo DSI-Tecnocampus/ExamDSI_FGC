@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>La Pobla Stations</title>
+</head>
+<body>
+
+<h1><img src="layout_set_logo.png"/> LLeida - La Pobla Stations</h1>
+
+<ul>
+    <li th:each="station : ${stationList}"
+        th:id="'station_' + ${station.nom}">
+        <div th:text="${station.nom}">Nom</div>
+        <div th:text="${station.longitud}">Longitud</div>
+        <div th:text="${station.latitud}">Latitud</div>
+    </li>
+</ul>
+
+
+</body>
+</html>

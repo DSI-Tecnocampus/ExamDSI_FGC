@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Users</title>
+</head>
+<body>
+<h1><img src="/layout_set_logo.png"/> LLeida - La Pobla</h1>
+<h1>Users List</h1>
+
+<div th:each="tuser : ${users}">
+    <h2><span th:text="${tuser.name}">username</span> <span th:text="${tuser.secondName}">second name</span></h2>
+    <div><span>username: </span><span th:text="${tuser.username}">username</span></div>
+    <div><span>Email: </span><span th:text="${tuser.email}">email</span></div>
+
+    <div style="margin-left: 40px" th:each="favoriteJourney : ${tuser.favoriteJourneyList}">
+
+        Origin: <span th:text="${favoriteJourney.journey.origin.nom}"> Origin </span><br/>
+        Destination: <span th:text="${favoriteJourney.journey.destination.nom}"> Destination </span>
+        <p></p>
+    </div>
+</div>
+</body>
+</html>

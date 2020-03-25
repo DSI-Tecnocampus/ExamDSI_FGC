@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Favorite Journeys</title>
+</head>
+<body>
+<h1><img src="/layout_set_logo.png"/> LLeida - La Pobla</h1>
+<h1><span th:text="${username}">username</span>'s Favorite Journeys</h1>
+
+<div th:each="favoriteJourney : ${favoriteJourneys}">
+
+    Origin: <span th:text="${favoriteJourney.journey.origin.nom}"> Origin </span><br/>
+    Destination: <span th:text="${favoriteJourney.journey.destination.nom}"> Destination </span>
+    <ul>
+        <li th:each="start : ${favoriteJourney.startList}">
+            <div th:text="${start.dayOfWeek}"> day</div>
+            <div th:text="${start.timeStart}"> time</div>
+        </li>
+    </ul>
+</div>
+</body>
+</html>

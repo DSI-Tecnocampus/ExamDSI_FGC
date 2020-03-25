@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>La Pobla Stations</title>
+    <link rel="stylesheet" type="text/css" th:href="@{../style.css}"/>
+    <script type="text/javascript" src="/js/addInput.js"></script>
+</head>
+<body>
+
+<h1><img src="/layout_set_logo.png"/> LLeida - La Pobla Stations</h1>
+<h2>
+    <div th:text="${username}">Username</div>
+</h2>
+
+<div align="left" class="errors" th:if="${#lists.size(myErrors)>0}">
+    <ul>
+        <li th:each="err : ${myErrors}"
+            th:text="${err}">Input is incorrect
+        </li>
+    </ul>
+</div>
+<br/>
+
+<form method="post" th:object="${favoriteJourney}">
+
+    <div align="left" class="errors" th:if="${#fields.hasErrors('*')}">
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}"
+                th:text="${err}">Input is incorrect
+            </li>
+        </ul>
+    </div>
+
+
+    <label th:class="${#lists.size(myErrors)>0}? 'error'">Origin:</label>
+    <select name="journey.origin.nom">
+        <option th:each="station : ${stationList}" th:value="${station.nom}" th:text="${station.nom}"
+                th:selected="${station.nom == favoriteJourney.journey.origin.nom}">Station name
+        </option>
+    </select>
+    <label th:class="${#lists.size(myErrors)>0}? 'error'">Destination:</label>
+    <select name="journey.destination.nom">
+        <option th:each="station : ${stationList}" th:value="${station.nom}" th:text="${station.nom}"
+                th:selected="${station.nom == favoriteJourney.journey.destination.nom}">Station name
+        </option>
+    </select>
+    <br/>
+    <br/>
+    <br/>
+    Week's day and time:
+    <br/>
+    <div id="dateTimeList" th:each="start,iter : ${favoriteJourney.startList}">
+        <div name="dateTime">
+            Day: <select th:name="${'startList[' + iter.index + '].dayOfWeek'}">
+            <option value="Sunday" th:selected="${start.dayOfWeek == 'Sunday'}">Sunday</option>
+            <option value="Monday" th:selected="${start.dayOfWeek == 'Monday'}">Monday</option>
+            <option value="Tuesday" th:selected="${start.dayOfWeek == 'Tuesday'}">Tuesday</option>
+            <option value="Wednesday" th:selected="${start.dayOfWeek == 'Wednesday'}">Wednesday</option>
+            <option value="Thursday" th:selected="${start.dayOfWeek == 'Thursday'}">Thursday</option>
+            <option value="Friday" th:selected="${start.dayOfWeek == 'Friday'}">Friday</option>
+            <option value="Saturday" th:selected="${start.dayOfWeek == 'Saturday'}">Saturday</option>
+        </select>
+            Time (hh:mm): <input type="text" th:name="${'startList[' + iter.index + '].timeStart'}"
+                                 th:value="${start.timeStart}"
+                                 th:class="${#fields.hasErrors('startList[' + iter.index + '].timeStart')}? 'error'"/>
+        </div>
+    </div>
+    <input type="button" value="Add another day and time input" onClick="addInput('dateTimeList');"/>
+
+    <br/><br/>
+    <input type="submit" value="New Favorite Journey"/>
+
+
+</form>
+
+</body>
+</html>
